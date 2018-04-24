@@ -21,6 +21,7 @@
       "**/*"
     ],
     "ios": {
+      "bundleIdentifier": "com.pipopotamasu.cocoro-calendar",
       "supportsTablet": true
     }
   }

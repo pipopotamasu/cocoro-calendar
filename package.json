@@ -5,5 +5,9 @@
     "expo": "^26.0.0",
     "react": "16.3.0-alpha.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-26.0.0.tar.gz"
+  },
+  "scripts": {
+    "exp-device": "exp start",
+    "exp-ios-t": "exp build:ios -t simulator"
   }
 }
