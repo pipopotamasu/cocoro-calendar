@@ -8,6 +8,7 @@
   },
   "scripts": {
     "exp-device": "exp start",
+    "exp-ios": "exp ios",
     "exp-ios-t": "exp build:ios -t simulator"
   }
 }
