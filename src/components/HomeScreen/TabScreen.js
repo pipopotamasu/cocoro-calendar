@@ -18,22 +18,22 @@ export default (MainScreenNavigator = TabNavigator(
               vertical
               active={props.navigationState.index === 0}
               onPress={() => props.navigation.navigate("HomeScreen")}>
-              <Icon name="bowtie" />
-              <Text>Lucy</Text>
+              <Icon name="home" />
+              <Text>Home</Text>
             </Button>
             <Button
               vertical
               active={props.navigationState.index === 1}
               onPress={() => props.navigation.navigate("HomeScreen")}>
-              <Icon name="briefcase" />
-              <Text>Nine</Text>
+              <Icon name="calendar" type="FontAwesome" />
+              <Text>Calendar</Text>
             </Button>
             <Button
               vertical
               active={props.navigationState.index === 2}
               onPress={() => props.navigation.navigate("HomeScreen")}>
-              <Icon name="headset" />
-              <Text>Jade</Text>
+              <Icon name="book"  type="FontAwesome" />
+              <Text>Discription</Text>
             </Button>
           </FooterTab>
         </Footer>
