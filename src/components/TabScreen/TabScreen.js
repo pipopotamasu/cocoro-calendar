@@ -1,11 +1,12 @@
 import React, { Component } from "react";
-import HomeScreen from "./HomeScreen.js";
+import HomeScreen from "../HomeScreen/HomeScreen.js";
+import CalendarScreen from "../CalendarScreen/CalendarScreen.js";
 import { TabNavigator } from "react-navigation";
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 export default (MainScreenNavigator = TabNavigator(
   {
     HomeScreen: { screen: HomeScreen },
-    CalendarScreen: { screen: HomeScreen },
+    CalendarScreen: { screen: CalendarScreen },
     DiscriptionScreen: { screen: HomeScreen }
   },
   {
@@ -24,7 +25,7 @@ export default (MainScreenNavigator = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("HomeScreen")}>
+              onPress={() => props.navigation.navigate("CalendarScreen")}>
               <Icon name="calendar" type="FontAwesome" />
               <Text>Calendar</Text>
             </Button>

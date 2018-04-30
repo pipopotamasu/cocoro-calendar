@@ -13,7 +13,7 @@ export default class HomeScreen extends React.Component {
             </Button>
           </Left>
           <Body>
-            <Title>Home</Title>
+            <Title>Calendar</Title>
           </Body>
           <Right />
         </Header>

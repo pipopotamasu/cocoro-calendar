@@ -1,13 +1,13 @@
 import React, { Component } from "react";
-import TabScreen from "../TabScreen/TabScreen.js";
+import CalendarScreen from "./CalendarScreen.js";
 import SideBar from "../SideBar/SideBar.js";
 import { DrawerNavigator } from "react-navigation";
-const HomeScreenRouter = DrawerNavigator(
+const CalendarScreenRouter = DrawerNavigator(
   {
-    Home: { screen: HomeScreen }
+    Calendar: { screen: CalendarScreen }
   },
   {
     contentComponent: props => <SideBar {...props} />
   }
 );
-export default HomeScreenRouter;
+export default CalendarScreenRouter;
