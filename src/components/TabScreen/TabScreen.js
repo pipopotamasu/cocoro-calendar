@@ -5,9 +5,9 @@ import { TabNavigator } from "react-navigation";
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
 export default (MainScreenNavigator = TabNavigator(
   {
-    HomeScreen: { screen: HomeScreen },
-    CalendarScreen: { screen: CalendarScreen },
-    DiscriptionScreen: { screen: HomeScreen }
+    Home: { screen: HomeScreen },
+    Calendar: { screen: CalendarScreen },
+    Discription: { screen: HomeScreen }
   },
   {
     tabBarPosition: "bottom",
@@ -18,21 +18,21 @@ export default (MainScreenNavigator = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 0}
-              onPress={() => props.navigation.navigate("HomeScreen")}>
+              onPress={() => props.navigation.navigate("Home")}>
               <Icon name="home" />
               <Text>Home</Text>
             </Button>
             <Button
               vertical
               active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("CalendarScreen")}>
+              onPress={() => props.navigation.navigate("Calendar")}>
               <Icon name="calendar" type="FontAwesome" />
               <Text>Calendar</Text>
             </Button>
             <Button
               vertical
               active={props.navigationState.index === 2}
-              onPress={() => props.navigation.navigate("HomeScreen")}>
+              onPress={() => props.navigation.navigate("Home")}>
               <Icon name="book"  type="FontAwesome" />
               <Text>Discription</Text>
             </Button>
