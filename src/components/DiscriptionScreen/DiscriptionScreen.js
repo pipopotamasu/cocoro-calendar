@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
-export default class CalendarScreen extends React.Component {
+export default class DiscriptionScreen extends React.Component {
   render() {
     return (
       <Container>
@@ -13,7 +13,7 @@ export default class CalendarScreen extends React.Component {
             </Button>
           </Left>
           <Body>
-            <Title>Calendar</Title>
+            <Title>Discription</Title>
           </Body>
           <Right />
         </Header>

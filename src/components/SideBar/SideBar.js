@@ -1,6 +1,6 @@
 import React from "react";
 import { Container, Content, Text, List, ListItem } from "native-base";
-const routes = ["Home", "Calendar"];
+const routes = ["Home", "Calendar", "Discription"];
 
 export default class SideBar extends React.Component {
   render() {
