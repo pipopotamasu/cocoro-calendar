@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
+import { Container, Content, Text, Card, CardItem, List, ListItem } from "native-base";
 import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
 import AppStore from "../../store/appStore";
@@ -11,13 +11,20 @@ import AppStore from "../../store/appStore";
       <Container>
         <GlobalHeader title="Home" navigation={this.props.navigation} />
         <Content padder>
-          <Card>
+          <Card style={styles.date}>
             <CardItem header>
-              <Body style={styles.date}>
-                <Text>{AppStore.today}のTODO</Text>
-              </Body>
+              <Text>{AppStore.today}のTODO</Text>
             </CardItem>
           </Card>
+        </Content>
+        <Content>
+          <List dataArray={AppStore.todos.$mobx.values}
+            renderRow={(item) =>
+              <ListItem>
+                <Text>{item.text}</Text>
+              </ListItem>
+            }>
+          </List>
         </Content>
       </Container>
     );
