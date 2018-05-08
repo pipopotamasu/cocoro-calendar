@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from 'react-native';
-import { Container, Content, Text, Card, CardItem, List, ListItem } from "native-base";
+import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox } from "native-base";
 import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
 import AppStore from "../../store/appStore";
@@ -21,7 +21,8 @@ import AppStore from "../../store/appStore";
           <List dataArray={AppStore.todos.$mobx.values}
             renderRow={(item) =>
               <ListItem>
-                <Text>{item.text}</Text>
+                <CheckBox checked={item.done} />
+                <Text style={styles.itemText}>{item.text}</Text>
               </ListItem>
             }>
           </List>
@@ -34,5 +35,8 @@ import AppStore from "../../store/appStore";
 const styles = StyleSheet.create({
   date: {
     alignItems: 'center',
+  },
+  itemText: {
+    paddingLeft: 10
   }
 });
