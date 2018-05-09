@@ -9,10 +9,12 @@ const INITIAL_TODOS = [{ id: 1, text: 'test1', done: false, created_at: null },
 class AppStore {
   @observable today = today();
   @observable todos = INITIAL_TODOS;
-  // increment() {
-  //   this.counter++;
-  //   console.log("increment", this.counter);
-  // }
+  toggleDone(id) {
+    this.todos.forEach((todo, i) => {
+      console.log(todo);
+      if (todo.id == id) this.todos[i].done = !todo.done
+    });
+  }
   // decrement() {
   //   this.counter--;
   //   console.log("decrement", this.counter);

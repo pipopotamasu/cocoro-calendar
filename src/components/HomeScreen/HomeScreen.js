@@ -21,7 +21,7 @@ import AppStore from "../../store/appStore";
           <List dataArray={AppStore.todos.$mobx.values}
             renderRow={(item) =>
               <ListItem>
-                <CheckBox checked={item.done} />
+                <CheckBox checked={item.done} onPress={()=>AppStore.toggleDone(item.id)}/>
                 <Text style={styles.itemText}>{item.text}</Text>
               </ListItem>
             }>
