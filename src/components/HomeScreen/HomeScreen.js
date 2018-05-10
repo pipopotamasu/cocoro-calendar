@@ -18,7 +18,7 @@ import AppStore from "../../store/appStore";
           </Card>
         </Content>
         <Content>
-          <List dataArray={AppStore.todos.$mobx.values}
+          <List dataArray={AppStore.todos.slice()}
             renderRow={(item) =>
               <ListItem>
                 <CheckBox checked={item.done} onPress={()=>AppStore.toggleDone(item.id)}/>

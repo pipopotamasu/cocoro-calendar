@@ -10,10 +10,12 @@ class AppStore {
   @observable today = today();
   @observable todos = INITIAL_TODOS;
   toggleDone(id) {
+    newTodos = []
     this.todos.forEach((todo, i) => {
-      console.log(todo);
-      if (todo.id == id) this.todos[i].done = !todo.done
+      if (todo.id == id) todo.done = !todo.done
+      newTodos.push(todo)
     });
+    this.todos.replace(newTodos)
   }
   // decrement() {
   //   this.counter--;
