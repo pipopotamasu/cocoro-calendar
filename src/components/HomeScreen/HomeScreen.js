@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox } from "native-base";
 import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
@@ -18,14 +18,15 @@ import AppStore from "../../store/appStore";
           </Card>
         </Content>
         <Content>
-          <List dataArray={AppStore.todos.slice()}
-            renderRow={(item) =>
+          <FlatList
+            data={AppStore.todos.slice()}
+            renderItem={({ item }) => (
               <ListItem>
                 <CheckBox checked={item.done} onPress={()=>AppStore.toggleDone(item.id)}/>
                 <Text style={styles.itemText}>{item.text}</Text>
               </ListItem>
-            }>
-          </List>
+            )}
+          />
         </Content>
       </Container>
     );
