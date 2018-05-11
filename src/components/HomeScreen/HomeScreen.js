@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, FlatList } from 'react-native';
+import { StyleSheet, FlatList, View } from 'react-native';
 import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox } from "native-base";
 import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
@@ -20,6 +20,7 @@ import AppStore from "../../store/appStore";
         <Content>
           <FlatList
             data={AppStore.todos.slice()}
+            keyExtractor={( item ) => item.id.toString()}
             renderItem={({ item }) => (
               <ListItem>
                 <CheckBox checked={item.done} onPress={()=>AppStore.toggleDone(item.id)}/>
