@@ -20,7 +20,7 @@ import AppStore from "../../store/appStore";
         <Content>
           <FlatList
             data={AppStore.todos.slice()}
-            keyExtractor={( item ) => item.id.toString()}
+            keyExtractor={( item, index ) => index.toString()}
             renderItem={({ item }) => (
               <ListItem>
                 <CheckBox checked={item.done} onPress={()=>AppStore.toggleDone(item.id)}/>
