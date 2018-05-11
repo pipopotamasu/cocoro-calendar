@@ -1,32 +1,43 @@
 import React from "react";
-import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
-export default class HomeScreen extends React.Component {
+import { StyleSheet, FlatList } from 'react-native';
+import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox } from "native-base";
+import { observer } from 'mobx-react';
+import GlobalHeader from "../GlobalHeader";
+import AppStore from "../../store/appStore";
+
+@observer export default class HomeScreen extends React.Component {
   render() {
     return (
       <Container>
-        <Header>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.navigation.navigate("DrawerOpen")}>
-              <Icon name="menu" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Home</Title>
-          </Body>
-          <Right />
-        </Header>
+        <GlobalHeader title="Home" navigation={this.props.navigation} />
         <Content padder>
-          <Card>
-            <CardItem>
-              <Body>
-                <Text>Chat App to talk some awesome people!</Text>
-              </Body>
+          <Card style={styles.date}>
+            <CardItem header>
+              <Text>{AppStore.today}のTODO</Text>
             </CardItem>
           </Card>
+        </Content>
+        <Content>
+          <FlatList
+            data={AppStore.todos.slice()}
+            renderItem={({ item }) => (
+              <ListItem>
+                <CheckBox checked={item.done} onPress={()=>AppStore.toggleDone(item.id)}/>
+                <Text style={styles.itemText}>{item.text}</Text>
+              </ListItem>
+            )}
+          />
         </Content>
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  date: {
+    alignItems: 'center',
+  },
+  itemText: {
+    paddingLeft: 10
+  }
+});
