@@ -1,5 +1,5 @@
 import React from "react";
-import { StyleSheet, FlatList, View } from 'react-native';
+import { StyleSheet, FlatList } from 'react-native';
 import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox } from "native-base";
 import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
