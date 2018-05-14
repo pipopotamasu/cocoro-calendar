@@ -3,6 +3,7 @@ import { StyleSheet, FlatList } from 'react-native';
 import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox } from "native-base";
 import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
+import * as Progress from 'react-native-progress';
 import AppStore from "../../store/appStore";
 
 @observer export default class HomeScreen extends React.Component {
@@ -16,6 +17,9 @@ import AppStore from "../../store/appStore";
               <Text>{AppStore.today}のTODO</Text>
             </CardItem>
           </Card>
+        </Content>
+        <Content padder>
+          <Progress.Bar width={270} height={15} />
         </Content>
         <Content>
           <FlatList
