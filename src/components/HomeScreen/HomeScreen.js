@@ -3,8 +3,8 @@ import { StyleSheet, FlatList } from 'react-native';
 import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox } from "native-base";
 import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
-import Progress from './Progress';
 import AppStore from "../../store/appStore";
+import * as Progress from 'react-native-progress';
 
 @observer export default class HomeScreen extends React.Component {
   render() {
@@ -18,8 +18,10 @@ import AppStore from "../../store/appStore";
             </CardItem>
           </Card>
         </Content>
-        <Progress />
-        <Content>
+        <Container style={styles.progress}>
+          <Progress.Bar width={270} height={15} />
+        </Container>
+        <Container style={styles.todoList}>
           <FlatList
             data={AppStore.todos.slice()}
             keyExtractor={( item, index ) => index.toString()}
@@ -30,7 +32,7 @@ import AppStore from "../../store/appStore";
               </ListItem>
             )}
           />
-        </Content>
+        </Container>
       </Container>
     );
   }
@@ -39,6 +41,13 @@ import AppStore from "../../store/appStore";
 const styles = StyleSheet.create({
   date: {
     alignItems: 'center',
+  },
+  progress: {
+    alignItems: 'center',
+    marginTop: -200,
+  },
+  todoList: {
+    marginTop: -100,
   },
   itemText: {
     paddingLeft: 10
