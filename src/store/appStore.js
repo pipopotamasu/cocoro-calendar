@@ -9,6 +9,11 @@ const INITIAL_TODOS = [{ id: 1, text: 'test1', done: false, created_at: null },
 class AppStore {
   @observable today = today();
   @observable todos = INITIAL_TODOS;
+  get todosProgress() {
+    const doneCount = this.todos.filter((todo) => { return (todo.done) }).length
+    progress = doneCount / 5
+    return progress
+  }
   toggleDone(id) {
     newTodos = []
     this.todos.forEach((todo, i) => {

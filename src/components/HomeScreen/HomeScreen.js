@@ -7,7 +7,32 @@ import AppStore from "../../store/appStore";
 import * as Progress from 'react-native-progress';
 
 @observer export default class HomeScreen extends React.Component {
+
+  calColor (progress) {
+    switch (progress) {
+      case 0:
+        return 'rgb(0,0,0)'
+        break;
+      case 0.2:
+        return 'rgb(0,256,0)'
+        break;
+      case 0.4:
+        return 'rgb(0,220,0)'
+        break;
+      case 0.6:
+        return 'rgb(0,190,0)'
+        break;
+      case 0.8:
+        return 'rgb(0,160,0)'
+        break;
+      case 1:
+        return 'rgb(0,128,0)'
+        break;
+    }
+  }
+
   render() {
+    console.log(AppStore.todosProgress)
     return (
       <Container>
         <GlobalHeader title="Home" navigation={this.props.navigation} />
@@ -19,7 +44,11 @@ import * as Progress from 'react-native-progress';
           </Card>
         </Content>
         <Container style={styles.progress}>
-          <Progress.Bar width={270} height={15} />
+          <Progress.Bar
+            progress={AppStore.todosProgress}
+            color={this.calColor(AppStore.todosProgress)}
+            width={270}
+            height={15} />
         </Container>
         <Container style={styles.todoList}>
           <FlatList
