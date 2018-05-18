@@ -55,8 +55,8 @@ import * as Progress from 'react-native-progress';
             data={AppStore.todos.slice()}
             keyExtractor={( item, index ) => index.toString()}
             renderItem={({ item }) => (
-              <ListItem>
-                <CheckBox checked={item.done} onPress={()=>AppStore.toggleDone(item.id)}/>
+              <ListItem onPress={()=>AppStore.toggleDone(item.id)}>
+                <CheckBox checked={item.done}/>
                 <Text style={styles.itemText}>{item.text}</Text>
               </ListItem>
             )}
