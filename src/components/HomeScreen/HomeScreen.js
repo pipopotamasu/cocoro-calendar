@@ -8,6 +8,10 @@ import * as Progress from 'react-native-progress';
 
 @observer export default class HomeScreen extends React.Component {
 
+  componentWillMount() {
+    AppStore.registerTodos()
+  }
+
   calColor (progress) {
     switch (progress) {
       case 0:
@@ -32,7 +36,6 @@ import * as Progress from 'react-native-progress';
   }
 
   render() {
-    console.log(AppStore.todosProgress)
     return (
       <Container>
         <GlobalHeader title="Home" navigation={this.props.navigation} />
