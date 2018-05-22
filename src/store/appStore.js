@@ -22,7 +22,7 @@ class AppStore {
   toggleDone(id) {
     newTodos = []
     this.todos.forEach((todo, i) => {
-      if (todo.id == id) { 
+      if (todo.id == id) {
         todo.done = !todo.done
         this.updateTodo(todo)
       }
@@ -32,14 +32,7 @@ class AppStore {
   }
 
   async registerTodos() {
-    const res = await DB.todo.find({
-        where: {
-          created_at: this.today
-        },
-        order: {
-            id: 'ASC',
-        }
-    })
+    const res = await this.fetchTodos(this.today)
 
     // exist today's todos?
     if (res === null) {
@@ -48,6 +41,17 @@ class AppStore {
       // fetch today's todos if exists
       this.todos = res
     }
+  }
+
+  async fetchTodos(createdAt) {
+    return await DB.todo.find({
+        where: {
+          created_at: createdAt
+        },
+        order: {
+            id: 'ASC',
+        }
+    })
   }
 
   async saveTodos(todos) {
