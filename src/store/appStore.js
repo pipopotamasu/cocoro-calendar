@@ -44,7 +44,8 @@ class AppStore {
     if (res === null) {
       // register today's todos if not exists
       // await saveTodos(this.todos.slice().toJS(this.todos))
-      for(let i in this.todos.slice().toJS(this.todos)) {
+      let todos = toJS(this.todos)
+      for(let i in todos) {
         console.log(todos[i])
         await DB.todo.add(Object.assign(todos[i], { created_at: this.today }))
       }
