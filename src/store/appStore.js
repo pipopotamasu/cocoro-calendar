@@ -3,7 +3,7 @@ import Store from 'react-native-store';
 
 const INITIAL_TODOS = [{ id: 1, text: 'test1', done: false, created_at: null },
                        { id: 2, text: 'test2', done: false, created_at: null },
-                       { id: 3, text: 'test3', done: true, created_at: null },
+                       { id: 3, text: 'test3', done: false, created_at: null },
                        { id: 4, text: 'test4', done: false, created_at: null },
                        { id: 5, text: 'test5', done: false, created_at: null }]
 
@@ -22,7 +22,10 @@ class AppStore {
   toggleDone(id) {
     newTodos = []
     this.todos.forEach((todo, i) => {
-      if (todo.id == id) todo.done = !todo.done
+      if (todo.id == id) { 
+        todo.done = !todo.done
+        this.updateTodo(todo)
+      }
       newTodos.push(todo)
     });
     this.todos.replace(newTodos)
@@ -51,6 +54,10 @@ class AppStore {
     for(let i in todos) {
       await DB.todo.add(Object.assign(todos[i], { created_at: this.today }))
     }
+  }
+
+  async updateTodo(todo) {
+    await DB.todo.updateById(todo, todo._id)
   }
 }
 
