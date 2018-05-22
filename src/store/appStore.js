@@ -38,20 +38,18 @@ class AppStore {
         }
     })
 
-    console.log(res)
-
     // exist today's todos?
     if (res === null) {
-      // register today's todos if not exists
-      // await saveTodos(this.todos.slice().toJS(this.todos))
-      let todos = toJS(this.todos)
-      for(let i in todos) {
-        console.log(todos[i])
-        await DB.todo.add(Object.assign(todos[i], { created_at: this.today }))
-      }
+      await this.saveTodos(toJS(this.todos))
     } else {
       // fetch today's todos if exists
       this.todos = res
+    }
+  }
+
+  async saveTodos(todos) {
+    for(let i in todos) {
+      await DB.todo.add(Object.assign(todos[i], { created_at: this.today }))
     }
   }
 }
@@ -62,14 +60,6 @@ function today() {
   const month = ( "0" + ( today.getMonth() + 1 )).slice(-2)
   const day = ( "0" + today.getDate()).slice(-2)
   return `${year}-${month}-${day}`;
-}
-
-function saveTodos(todos) {
-  console.log(2)
-  console.log(todos)
-  for(let i in todos) {
-    DB.todo.add(Object.assign(todos[i], { created_at: this.today }))
-  }
 }
 
 export default new AppStore();
