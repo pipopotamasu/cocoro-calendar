@@ -13,7 +13,7 @@ const DB = {
 
 class AppStore {
   @observable today = today();
-  @observable todos = INITIAL_TODOS;
+  @observable todos = [];
   get todosProgress() {
     const doneCount = this.todos.filter((todo) => { return (todo.done) }).length
     progress = doneCount / 5
@@ -36,7 +36,8 @@ class AppStore {
 
     // exist today's todos?
     if (res === null) {
-      await this.saveTodos(toJS(this.todos))
+      await this.saveTodos(INITIAL_TODOS)
+      this.todos = await this.fetchTodos(this.today)
     } else {
       // fetch today's todos if exists
       this.todos = res
