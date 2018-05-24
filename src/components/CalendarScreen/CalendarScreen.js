@@ -1,5 +1,6 @@
 import React from "react";
-import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
+import { Container, Content } from "native-base";
+import { StyleSheet } from 'react-native';
 import GlobalHeader from "../GlobalHeader";
 import { Calendar } from 'react-native-calendars';
 
@@ -8,19 +9,16 @@ export default class CalendarScreen extends React.Component {
     return (
       <Container>
         <GlobalHeader title="Calendar" navigation={this.props.navigation}/>
-        <Content padder>
-          <Card>
-            <CardItem>
-              <Body>
-                <Text>Chat App to talk some awesome people!</Text>
-              </Body>
-            </CardItem>
-          </Card>
-        </Content>
-        <Container>
+        <Content padder style={styles.calendar}>
           <Calendar/>
-        </Container>
+        </Content>
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  calendar: {
+    paddingTop: 20
+  }
+});
