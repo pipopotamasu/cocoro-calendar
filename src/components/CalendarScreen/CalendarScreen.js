@@ -1,6 +1,8 @@
 import React from "react";
 import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
 import GlobalHeader from "../GlobalHeader";
+import { Calendar } from 'react-native-calendars';
+
 export default class CalendarScreen extends React.Component {
   render() {
     return (
@@ -15,6 +17,9 @@ export default class CalendarScreen extends React.Component {
             </CardItem>
           </Card>
         </Content>
+        <Container>
+          <Calendar/>
+        </Container>
       </Container>
     );
   }
