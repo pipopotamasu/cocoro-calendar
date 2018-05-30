@@ -6,13 +6,8 @@ import { Calendar } from 'react-native-calendars';
 import AppStore from "../../store/appStore";
 
 export default class CalendarScreen extends React.Component {
-  componentWillMount() {
-    // AppStore.registerTodosGroupByDate()
-  }
-
   async markedColorDates () {
     const todos_group_by_day = await AppStore.fetchTodosGroupByDate()
-    console.log(todos_group_by_day)
     let datesWithColor = {}
     for (let date in todos_group_by_day) {
       let progress = this.calProgress(todos_group_by_day[date])
@@ -52,16 +47,14 @@ export default class CalendarScreen extends React.Component {
     }
   }
 
-  async render() {
-    const hoge = await this.markedColorDates()
-    console.log(hoge)
+  render() {
     return (
       <Container>
         <GlobalHeader title="Calendar" navigation={this.props.navigation}/>
         <Content padder style={styles.calendar}>
           <Calendar
             markedDates={
-              hoge
+              { '2018-05-30': { color: 'green' } }
             }
             markingType={'period'}
           />

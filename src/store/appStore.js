@@ -45,7 +45,7 @@ class AppStore {
     }
   }
 
-  fetchTodosGroupByDate = async () => {
+  async fetchTodosGroupByDate() {
     const today = new Date()
     const year = today.getFullYear()
     const month = ( "0" + ( today.getMonth() + 1 )).slice(-2)
