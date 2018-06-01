@@ -1,5 +1,5 @@
 import React from "react";
-import { Container, Content } from "native-base";
+import { Container, Content, Spinner } from "native-base";
 import { StyleSheet, View, Text } from 'react-native';
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
@@ -53,7 +53,11 @@ import AppStore from "../../store/appStore";
 
   render() {
     if (AppStore.is_loading) {
-      return <View><Text>Loading...</Text></View>;
+      return (
+        <Container style={styles.loader}>
+          <Spinner color='#00bfff' />
+        </Container>
+      )
     }
     return (
       <Container>
@@ -74,5 +78,8 @@ import AppStore from "../../store/appStore";
 const styles = StyleSheet.create({
   calendar: {
     paddingTop: 20
+  },
+  loader: {
+    justifyContent: 'center',
   }
 });
