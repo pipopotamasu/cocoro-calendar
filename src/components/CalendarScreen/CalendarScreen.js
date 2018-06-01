@@ -9,7 +9,8 @@ import AppStore from "../../store/appStore";
 
 @observer export default class CalendarScreen extends React.Component {
   componentWillMount() {
-    AppStore.registerTodosGroupByDate()
+    const { year, month } = AppStore.today
+    AppStore.registerTodosGroupByDate(year, month)
   }
 
   markedColorDates (todos_group_by_day) {
