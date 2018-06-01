@@ -37,7 +37,7 @@ class AppStore {
   }
 
   async registerTodos() {
-    const res = await this.fetchTodos(this.today)
+    const res = await this.fetchTodos(this.today.ymd)
 
     // exist today's todos?
     if (res === null) {
@@ -78,7 +78,7 @@ class AppStore {
 
   async saveTodos(todos) {
     for(let i in todos) {
-      await DB.todo.add(Object.assign(todos[i], { created_at: this.today }))
+      await DB.todo.add(Object.assign(todos[i], { created_at: this.today.ymd }))
     }
   }
 
