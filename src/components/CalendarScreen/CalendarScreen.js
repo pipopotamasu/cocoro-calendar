@@ -1,13 +1,18 @@
 import React from "react";
 import { Container, Content } from "native-base";
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
 import { Calendar } from 'react-native-calendars';
 import AppStore from "../../store/appStore";
 
-export default class CalendarScreen extends React.Component {
-  async markedColorDates () {
-    const todos_group_by_day = await AppStore.fetchTodosGroupByDate()
+@observer export default class CalendarScreen extends React.Component {
+  componentWillMount() {
+    AppStore.registerTodosGroupByDate()
+  }
+
+  markedColorDates (todos_group_by_day) {
     let datesWithColor = {}
     for (let date in todos_group_by_day) {
       let progress = this.calProgress(todos_group_by_day[date])
@@ -18,7 +23,6 @@ export default class CalendarScreen extends React.Component {
   }
 
   calProgress (todos) {
-    // if(progress) return progress
     const doneCount = todos.filter((todo) => { return (todo.done) }).length
     progress = doneCount / 5
     return progress
@@ -48,13 +52,16 @@ export default class CalendarScreen extends React.Component {
   }
 
   render() {
+    if (AppStore.is_loading) {
+      return <View><Text>Loading...</Text></View>;
+    }
     return (
       <Container>
         <GlobalHeader title="Calendar" navigation={this.props.navigation}/>
         <Content padder style={styles.calendar}>
           <Calendar
             markedDates={
-              { '2018-05-30': { color: 'green' } }
+              this.markedColorDates(toJS(AppStore.todos_group_by_day))
             }
             markingType={'period'}
           />

@@ -14,6 +14,8 @@ const DB = {
 class AppStore {
   @observable today = today();
   @observable todos = [];
+  @observable todos_group_by_day = {};
+  @observable is_loading = true;
 
   get todosProgress() {
     const doneCount = this.todos.filter((todo) => { return (todo.done) }).length
@@ -45,7 +47,7 @@ class AppStore {
     }
   }
 
-  async fetchTodosGroupByDate() {
+  async registerTodosGroupByDate() {
     const today = new Date()
     const year = today.getFullYear()
     const month = ( "0" + ( today.getMonth() + 1 )).slice(-2)
@@ -57,8 +59,8 @@ class AppStore {
 
       if (res) todos_group_by_day = Object.assign(todos_group_by_day, { [fullYMD]: res })
     }
-
-    return todos_group_by_day
+    this.todos_group_by_day = todos_group_by_day
+    this.is_loading = false
   }
 
   async fetchTodos(createdAt) {

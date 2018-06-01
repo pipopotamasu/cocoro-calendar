@@ -4,6 +4,7 @@ import CalendarScreen from "../CalendarScreen/CalendarScreen.js";
 import DiscriptionScreen from "../DiscriptionScreen/DiscriptionScreen.js";
 import { TabNavigator } from "react-navigation";
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
+
 export default (MainScreenNavigator = TabNavigator(
   {
     Home: { screen: HomeScreen },
