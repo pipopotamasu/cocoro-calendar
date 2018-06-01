@@ -22,6 +22,7 @@ class AppStore {
     progress = doneCount / 5
     return progress
   }
+
   toggleDone(id) {
     newTodos = []
     this.todos.forEach((todo, i) => {
@@ -90,7 +91,7 @@ function today() {
   const year = today.getFullYear()
   const month = ( "0" + ( today.getMonth() + 1 )).slice(-2)
   const day = ( "0" + today.getDate()).slice(-2)
-  return `${year}-${month}-${day}`;
+  return { year, month, day, ymd: `${year}-${month}-${day}` }
 }
 
 export default new AppStore();

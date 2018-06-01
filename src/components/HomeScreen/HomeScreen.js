@@ -42,7 +42,7 @@ import * as Progress from 'react-native-progress';
         <Content padder>
           <Card style={styles.date}>
             <CardItem header>
-              <Text>{AppStore.today}のTODO</Text>
+              <Text>{AppStore.today.ymd}のTODO</Text>
             </CardItem>
           </Card>
         </Content>
