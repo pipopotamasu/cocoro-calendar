@@ -1,4 +1,5 @@
 import { observable } from 'mobx';
+import { today } from '../utill_methods'
 import Store from 'react-native-store';
 
 const INITIAL_TODOS = [{ id: 1, text: 'test1', done: false, created_at: null },
@@ -84,14 +85,6 @@ class AppStore {
   async updateTodo(todo) {
     await DB.todo.updateById(todo, todo._id)
   }
-}
-
-function today() {
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = ( "0" + ( today.getMonth() + 1 )).slice(-2)
-  const day = ( "0" + today.getDate()).slice(-2)
-  return { year, month, day, ymd: `${year}-${month}-${day}` }
 }
 
 export default new AppStore();
