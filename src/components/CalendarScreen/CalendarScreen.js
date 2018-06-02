@@ -53,7 +53,7 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
             onMonthChange={(date) => {
               const month = ( "0" + date.month).slice(-2)
               this.setState({
-                date: '2018-05-01'
+                date: `${date.year}-${month}-01`
               });
               AppStore.registerTodosGroupByDate(date.year, month)
             }}
