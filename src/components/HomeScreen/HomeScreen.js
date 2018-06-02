@@ -5,34 +5,12 @@ import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
 import AppStore from "../../store/appStore";
 import * as Progress from 'react-native-progress';
+import { calProgressColor } from "../../utill_methods"
 
 @observer export default class HomeScreen extends React.Component {
 
   componentWillMount() {
     AppStore.registerTodos()
-  }
-
-  calColor (progress) {
-    switch (progress) {
-      case 0:
-        return 'rgb(0,0,0)'
-        break;
-      case 0.2:
-        return 'rgb(0,256,0)'
-        break;
-      case 0.4:
-        return 'rgb(0,220,0)'
-        break;
-      case 0.6:
-        return 'rgb(0,190,0)'
-        break;
-      case 0.8:
-        return 'rgb(0,160,0)'
-        break;
-      case 1:
-        return 'rgb(0,128,0)'
-        break;
-    }
   }
 
   render() {
@@ -49,7 +27,7 @@ import * as Progress from 'react-native-progress';
         <Container style={styles.progress}>
           <Progress.Bar
             progress={AppStore.todosProgress}
-            color={this.calColor(AppStore.todosProgress)}
+            color={calProgressColor(AppStore.todosProgress)}
             width={270}
             height={15} />
         </Container>
