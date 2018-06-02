@@ -49,6 +49,7 @@ class AppStore {
   }
 
   async registerTodosGroupByDate(year, month) {
+    this.is_loading = true
     let todos_group_by_day = {}
     for(let i = 1; i <= 31; i++) {
       const day = ( '0' + i ).slice(-2)

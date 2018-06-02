@@ -9,6 +9,14 @@ import AppStore from "../../store/appStore";
 import { calCalendarColor, calProgress } from "../../utill_methods"
 
 @observer export default class CalendarScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      date: AppStore.today.ymd,
+    };
+  }
+
   componentWillMount() {
     const { year, month } = AppStore.today
     AppStore.registerTodosGroupByDate(year, month)
@@ -37,10 +45,18 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
         <GlobalHeader title="Calendar" navigation={this.props.navigation}/>
         <Content padder style={styles.calendar}>
           <Calendar
+            current={this.state.date}
             markedDates={
               this.markedColorDates(toJS(AppStore.todos_group_by_day))
             }
             markingType={'period'}
+            onMonthChange={(date) => {
+              const month = ( "0" + date.month).slice(-2)
+              this.setState({
+                date: '2018-05-01'
+              });
+              AppStore.registerTodosGroupByDate(date.year, month)
+            }}
           />
         </Content>
       </Container>
