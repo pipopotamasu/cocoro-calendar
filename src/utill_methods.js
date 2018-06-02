@@ -6,6 +6,12 @@ export const today = () => {
   return { year, month, day, ymd: `${year}-${month}-${day}` }
 }
 
+export const calProgress = (todos) => {
+  const doneCount = todos.filter((todo) => { return (todo.done) }).length
+  progress = doneCount / 5
+  return progress
+}
+
 export const calCalendarColor = () => {
   switch (progress) {
     case 0:

@@ -6,7 +6,7 @@ import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
 import { Calendar } from 'react-native-calendars';
 import AppStore from "../../store/appStore";
-import { calCalendarColor } from "../../utill_methods"
+import { calCalendarColor, calProgress } from "../../utill_methods"
 
 @observer export default class CalendarScreen extends React.Component {
   componentWillMount() {
@@ -17,17 +17,11 @@ import { calCalendarColor } from "../../utill_methods"
   markedColorDates (todos_group_by_day) {
     let datesWithColor = {}
     for (let date in todos_group_by_day) {
-      let progress = this.calProgress(todos_group_by_day[date])
+      let progress = calProgress(todos_group_by_day[date])
       dateWithColor = { [date]: { color: calCalendarColor(progress) } }
       datesWithColor = Object.assign(datesWithColor, dateWithColor)
     }
     return datesWithColor
-  }
-
-  calProgress (todos) {
-    const doneCount = todos.filter((todo) => { return (todo.done) }).length
-    progress = doneCount / 5
-    return progress
   }
 
   render() {

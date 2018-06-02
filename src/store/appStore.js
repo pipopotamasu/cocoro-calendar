@@ -1,6 +1,7 @@
 import { observable } from 'mobx';
 import { today } from '../utill_methods'
 import Store from 'react-native-store';
+import { calProgress } from "../utill_methods"
 
 const INITIAL_TODOS = [{ id: 1, text: 'test1', done: false, created_at: null },
                        { id: 2, text: 'test2', done: false, created_at: null },
@@ -19,9 +20,7 @@ class AppStore {
   @observable is_loading = true;
 
   get todosProgress() {
-    const doneCount = this.todos.filter((todo) => { return (todo.done) }).length
-    progress = doneCount / 5
-    return progress
+    return calProgress(this.todos)
   }
 
   toggleDone(id) {
