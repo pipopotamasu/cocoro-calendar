@@ -16,6 +16,7 @@ const DB = {
 class AppStore {
   @observable today = today();
   @observable todos = [];
+  @observable is_updated_todos = false;
   @observable todos_group_by_day = {};
   @observable is_loading = true;
 
@@ -33,6 +34,7 @@ class AppStore {
       newTodos.push(todo)
     });
     this.todos.replace(newTodos)
+    this.is_updated_todos = true
   }
 
   async registerTodos() {
