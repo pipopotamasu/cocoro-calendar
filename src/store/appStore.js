@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, toJS } from 'mobx';
 import { today } from '../utill_methods'
 import Store from 'react-native-store';
 import { calProgress } from "../utill_methods"
@@ -24,15 +24,17 @@ class AppStore {
     return calProgress(this.todos)
   }
 
-  toggleDone(id) {
+  async toggleDone(id) {
     newTodos = []
-    this.todos.forEach((todo, i) => {
-      if (todo.id == id) {
+    const todos = toJS(this.todos)
+    for(let i in todos) {
+      let todo = todos[i]
+      if(todo.id == id) {
         todo.done = !todo.done
-        this.updateTodo(todo)
+        todo = await this.updateTodo(todo)
       }
       newTodos.push(todo)
-    });
+    }
     this.todos.replace(newTodos)
     this.is_updated_todos = true
   }
@@ -82,7 +84,7 @@ class AppStore {
   }
 
   async updateTodo(todo) {
-    await DB.todo.updateById(todo, todo._id)
+    return await DB.todo.updateById(todo, todo._id)
   }
 }
 
