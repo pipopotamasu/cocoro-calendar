@@ -1,5 +1,7 @@
-import { toJS, observable } from 'mobx';
+import { observable } from 'mobx';
+import { today } from '../utill_methods'
 import Store from 'react-native-store';
+import { calProgress } from "../utill_methods"
 
 const INITIAL_TODOS = [{ id: 1, text: 'test1', done: false, created_at: null },
                        { id: 2, text: 'test2', done: false, created_at: null },
@@ -14,11 +16,14 @@ const DB = {
 class AppStore {
   @observable today = today();
   @observable todos = [];
+  @observable is_updated_todos = false;
+  @observable todos_group_by_day = {};
+  @observable is_loading = true;
+
   get todosProgress() {
-    const doneCount = this.todos.filter((todo) => { return (todo.done) }).length
-    progress = doneCount / 5
-    return progress
+    return calProgress(this.todos)
   }
+
   toggleDone(id) {
     newTodos = []
     this.todos.forEach((todo, i) => {
@@ -29,10 +34,11 @@ class AppStore {
       newTodos.push(todo)
     });
     this.todos.replace(newTodos)
+    this.is_updated_todos = true
   }
 
   async registerTodos() {
-    const res = await this.fetchTodos(this.today)
+    const res = await this.fetchTodos(this.today.ymd)
 
     // exist today's todos?
     if (res === null) {
@@ -42,6 +48,20 @@ class AppStore {
       // fetch today's todos if exists
       this.todos = res
     }
+  }
+
+  async registerTodosGroupByDate(year, month) {
+    this.is_loading = true
+    let todos_group_by_day = {}
+    for(let i = 1; i <= 31; i++) {
+      const day = ( '0' + i ).slice(-2)
+      const fullYMD = `${year}-${month}-${day}`
+      const res = await this.fetchTodos(fullYMD)
+
+      if (res) todos_group_by_day = Object.assign(todos_group_by_day, { [fullYMD]: res })
+    }
+    this.todos_group_by_day = todos_group_by_day
+    this.is_loading = false
   }
 
   async fetchTodos(createdAt) {
@@ -57,21 +77,13 @@ class AppStore {
 
   async saveTodos(todos) {
     for(let i in todos) {
-      await DB.todo.add(Object.assign(todos[i], { created_at: this.today }))
+      await DB.todo.add(Object.assign(todos[i], { created_at: this.today.ymd }))
     }
   }
 
   async updateTodo(todo) {
     await DB.todo.updateById(todo, todo._id)
   }
-}
-
-function today() {
-  const today = new Date()
-  const year = today.getFullYear()
-  const month = ( "0" + ( today.getMonth() + 1 )).slice(-2)
-  const day = ( "0" + today.getDate()).slice(-2)
-  return `${year}-${month}-${day}`;
 }
 
 export default new AppStore();

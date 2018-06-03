@@ -4,6 +4,8 @@ import CalendarScreen from "../CalendarScreen/CalendarScreen.js";
 import DiscriptionScreen from "../DiscriptionScreen/DiscriptionScreen.js";
 import { TabNavigator } from "react-navigation";
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
+import AppStore from '../../store/appStore'
+
 export default (MainScreenNavigator = TabNavigator(
   {
     Home: { screen: HomeScreen },
@@ -26,7 +28,15 @@ export default (MainScreenNavigator = TabNavigator(
             <Button
               vertical
               active={props.navigationState.index === 1}
-              onPress={() => props.navigation.navigate("Calendar")}>
+              onPress={() => {
+                  if (AppStore.is_updated_todos) {
+                    const { year, month } = AppStore.today
+                    AppStore.registerTodosGroupByDate(year, month)
+                    AppStore.is_updated_todos = false
+                  }
+                  props.navigation.navigate("Calendar")
+                }
+              }>
               <Icon name="calendar" type="FontAwesome" />
               <Text>Calendar</Text>
             </Button>

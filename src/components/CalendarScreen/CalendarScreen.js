@@ -1,21 +1,74 @@
 import React from "react";
-import { Container, Header, Title, Left, Icon, Right, Button, Body, Content,Text, Card, CardItem } from "native-base";
+import { Container, Content, Spinner } from "native-base";
+import { StyleSheet, View, Text } from 'react-native';
+import { toJS } from 'mobx';
+import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
-export default class CalendarScreen extends React.Component {
+import { Calendar } from 'react-native-calendars';
+import AppStore from "../../store/appStore";
+import { calCalendarColor, calProgress } from "../../utill_methods"
+
+@observer export default class CalendarScreen extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      date: AppStore.today.ymd,
+    };
+  }
+
+  componentWillMount() {
+    const { year, month } = AppStore.today
+    AppStore.registerTodosGroupByDate(year, month)
+  }
+
+  markedColorDates (todos_group_by_day) {
+    let datesWithColor = {}
+    for (let date in todos_group_by_day) {
+      let progress = calProgress(todos_group_by_day[date])
+      dateWithColor = { [date]: { color: calCalendarColor(progress) } }
+      datesWithColor = Object.assign(datesWithColor, dateWithColor)
+    }
+    return datesWithColor
+  }
+
   render() {
+    if (AppStore.is_loading) {
+      return (
+        <Container style={styles.loader}>
+          <Spinner color='#00bfff' />
+        </Container>
+      )
+    }
     return (
       <Container>
         <GlobalHeader title="Calendar" navigation={this.props.navigation}/>
-        <Content padder>
-          <Card>
-            <CardItem>
-              <Body>
-                <Text>Chat App to talk some awesome people!</Text>
-              </Body>
-            </CardItem>
-          </Card>
+        <Content padder style={styles.calendar}>
+          <Calendar
+            current={this.state.date}
+            markedDates={
+              this.markedColorDates(toJS(AppStore.todos_group_by_day))
+            }
+            markingType={'period'}
+            onMonthChange={(date) => {
+              const month = ( "0" + date.month).slice(-2)
+              this.setState({
+                date: `${date.year}-${month}-01`
+              });
+              AppStore.registerTodosGroupByDate(date.year, month)
+            }}
+          />
         </Content>
       </Container>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  calendar: {
+    paddingTop: 20
+  },
+  loader: {
+    justifyContent: 'center',
+  }
+});
