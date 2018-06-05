@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import HomeScreen from "../HomeScreen/HomeScreen.js";
-import CalendarScreen from "../CalendarScreen/CalendarScreen.js";
+import CalendarScreen from "../CalendarScreen/index.js";
 import DiscriptionScreen from "../DiscriptionScreen/DiscriptionScreen.js";
 import { TabNavigator } from "react-navigation";
 import { Button, Text, Icon, Footer, FooterTab } from "native-base";
