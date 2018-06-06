@@ -42,7 +42,6 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
     }
     return (
       <Container>
-        <GlobalHeader title="Calendar" navigation={this.props.navigation}/>
         <Content padder style={styles.calendar}>
           <Calendar
             current={this.state.date}
@@ -57,7 +56,7 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
               });
               AppStore.registerTodosGroupByDate(date.year, month)
             }}
-            onDayPress={(day) => this.props.navigation.navigate("Home")}
+            onDayPress={(day) => this.props.navigation.navigate("Todo")}
           />
         </Content>
       </Container>
