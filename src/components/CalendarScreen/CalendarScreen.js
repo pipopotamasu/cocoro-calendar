@@ -64,6 +64,12 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
   }
 }
 
+CalendarScreen.navigationOptions = ({ navigation }) => ({
+  header: (
+    <GlobalHeader title="Calendar" navigation={navigation} />
+  )
+});
+
 const styles = StyleSheet.create({
   calendar: {
     paddingTop: 20
