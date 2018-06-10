@@ -9,11 +9,6 @@ import * as Progress from 'react-native-progress';
 import { calProgressColor } from "../../utill_methods"
 
 @observer export default class PastScreen extends React.Component {
-
-  async componentWillMount() {
-    await AppStore.registerTodos()
-  }
-
   render() {
     return (
       <Container>
