@@ -13,12 +13,12 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
     super(props);
 
     this.state = {
-      date: AppStore.today.ymd,
+      date: AppStore.date.ymd,
     };
   }
 
   componentWillMount() {
-    const { year, month } = AppStore.today
+    const { year, month } = AppStore.date
     AppStore.registerTodosGroupByDate(year, month)
   }
 

@@ -14,7 +14,7 @@ const DB = {
 }
 
 class AppStore {
-  @observable today = today();
+  @observable date = today();
   @observable todos = [];
   @observable is_updated_todos = false;
   @observable todos_group_by_day = {};
@@ -40,14 +40,14 @@ class AppStore {
   }
 
   async registerTodos() {
-    const res = await this.fetchTodos(this.today.ymd)
+    const res = await this.fetchTodos(this.date.ymd)
 
-    // exist today's todos?
+    // exist todos?
     if (res === null) {
       await this.saveTodos(INITIAL_TODOS)
-      this.todos = await this.fetchTodos(this.today)
+      this.todos = await this.fetchTodos(this.date)
     } else {
-      // fetch today's todos if exists
+      // fetch todos if exists
       this.todos = res
     }
   }
@@ -79,7 +79,7 @@ class AppStore {
 
   async saveTodos(todos) {
     for(let i in todos) {
-      await DB.todo.add(Object.assign(todos[i], { created_at: this.today.ymd }))
+      await DB.todo.add(Object.assign(todos[i], { created_at: this.date.ymd }))
     }
   }
 
@@ -89,7 +89,7 @@ class AppStore {
 
   refreshCalendar() {
     if (this.is_updated_todos) {
-      const { year, month } = this.today
+      const { year, month } = this.date
       this.registerTodosGroupByDate(year, month)
       this.is_updated_todos = false
     }
