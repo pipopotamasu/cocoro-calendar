@@ -86,6 +86,14 @@ class AppStore {
   async updateTodo(todo) {
     return await DB.todo.updateById(todo, todo._id)
   }
+
+  refreshCalendar() {
+    if (this.is_updated_todos) {
+      const { year, month } = this.today
+      this.registerTodosGroupByDate(year, month)
+      this.is_updated_todos = false
+    }
+  }
 }
 
 export default new AppStore();

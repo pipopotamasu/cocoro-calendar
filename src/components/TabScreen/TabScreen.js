@@ -29,11 +29,7 @@ export default (MainScreenNavigator = TabNavigator(
               vertical
               active={props.navigationState.index === 1}
               onPress={() => {
-                  if (AppStore.is_updated_todos) {
-                    const { year, month } = AppStore.today
-                    AppStore.registerTodosGroupByDate(year, month)
-                    AppStore.is_updated_todos = false
-                  }
+                  AppStore.refreshCalendar()
                   props.navigation.navigate("Calendar")
                 }
               }>
