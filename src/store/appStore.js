@@ -94,6 +94,10 @@ class AppStore {
       this.is_updated_todos = false
     }
   }
+
+  setDate(date) {
+    this.date = { year: date.year, month: date.month, day: date.day, ymd: date.dateString }
+  }
 }
 
 export default new AppStore();

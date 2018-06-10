@@ -10,7 +10,6 @@ import * as Progress from 'react-native-progress';
 import { calProgressColor } from "../../utill_methods"
 
 @observer export default class HomeScreen extends React.Component {
-
   async componentWillMount() {
     await AppStore.registerTodos()
   }

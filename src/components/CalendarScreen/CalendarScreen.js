@@ -56,7 +56,10 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
               });
               AppStore.registerTodosGroupByDate(date.year, month)
             }}
-            onDayPress={(day) => this.props.navigation.navigate("Todo")}
+            onDayPress={(date) => {
+              AppStore.setDate(date)
+              this.props.navigation.navigate("Todo")
+            }}
           />
         </Content>
       </Container>
