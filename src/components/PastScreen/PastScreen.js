@@ -20,7 +20,7 @@ import { calProgressColor } from "../../utill_methods"
         <Content padder>
           <Card style={styles.date}>
             <CardItem header>
-              <Text>{AppStore.date.ymd}のTODO</Text>
+              <Text>{AppStore.date.dateString}のTODO</Text>
             </CardItem>
           </Card>
         </Content>

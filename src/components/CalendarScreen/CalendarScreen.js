@@ -13,7 +13,7 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
     super(props);
 
     this.state = {
-      date: AppStore.date.ymd,
+      date: AppStore.date.dateString,
     };
   }
 

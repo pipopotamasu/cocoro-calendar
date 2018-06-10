@@ -40,7 +40,7 @@ class AppStore {
   }
 
   async registerTodos() {
-    const res = await this.fetchTodos(this.date.ymd)
+    const res = await this.fetchTodos(this.date.dateString)
 
     // exist todos?
     if (res === null) {
@@ -79,7 +79,7 @@ class AppStore {
 
   async saveTodos(todos) {
     for(let i in todos) {
-      await DB.todo.add(Object.assign(todos[i], { created_at: this.date.ymd }))
+      await DB.todo.add(Object.assign(todos[i], { created_at: this.date.dateString }))
     }
   }
 
@@ -95,8 +95,15 @@ class AppStore {
     }
   }
 
+  async refreshTodos() {
+    if (this.date.dateString !== today().dateString) {
+      this.setDate(today())
+      await this.registerTodos()
+    }
+  }
+
   setDate(date) {
-    this.date = { year: date.year, month: date.month, day: date.day, ymd: date.dateString }
+    this.date = { year: date.year, month: date.month, day: date.day, dateString: date.dateString }
   }
 }
 

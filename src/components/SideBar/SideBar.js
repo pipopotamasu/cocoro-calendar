@@ -16,7 +16,8 @@ export default class SideBar extends React.Component {
                 <ListItem
                   button
                   onPress={() => {
-                      if (data == 'Calendar') AppStore.refreshCalendar()
+                      if (data === 'Calendar') AppStore.refreshCalendar()
+                      if (data === 'Home') AppStore.refreshTodos()
                       this.props.navigation.navigate(data)
                     }
                   }>
