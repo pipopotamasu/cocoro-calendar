@@ -40,7 +40,10 @@ PastScreen.navigationOptions = ({ navigation }) => ({
       <Left>
         <Button
           transparent
-          onPress={() => navigation.goBack()}>
+          onPress={() => {
+            AppStore.refreshCalendar()
+            navigation.goBack()
+          }}>
           <Icon name="arrow-back" />
         </Button>
       </Left>
