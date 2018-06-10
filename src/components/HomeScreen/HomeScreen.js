@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, FlatList } from 'react-native';
 import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox } from "native-base";
+import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
 import GlobalHeader from "../GlobalHeader";
 import Todos from "../Todos"
@@ -10,8 +11,8 @@ import { calProgressColor } from "../../utill_methods"
 
 @observer export default class HomeScreen extends React.Component {
 
-  componentWillMount() {
-    AppStore.registerTodos()
+  async componentWillMount() {
+    await AppStore.registerTodos()
   }
 
   render() {
@@ -33,7 +34,7 @@ import { calProgressColor } from "../../utill_methods"
             height={15} />
         </Container>
         <Container style={styles.todoList}>
-          <Todos todos={AppStore.todos.slice()}/>
+          <Todos todos={toJS(AppStore.todos)}/>
         </Container>
       </Container>
     );
