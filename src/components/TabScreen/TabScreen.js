@@ -34,6 +34,8 @@ export default (MainScreenNavigator = TabNavigator(
               active={props.navigationState.index === 1}
               onPress={() => {
                   AppStore.refreshCalendar()
+                  // go to root calendar
+                  props.navigation.goBack(null)
                   props.navigation.navigate("Calendar")
                 }
               }>
