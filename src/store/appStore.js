@@ -103,7 +103,8 @@ class AppStore {
   }
 
   setDate(date) {
-    this.date = { year: date.year, month: date.month, day: date.day, dateString: date.dateString }
+    const month = ( "0" + date.month).slice(-2)
+    this.date = { year: date.year, month: month, day: date.day, dateString: date.dateString }
   }
 }
 
