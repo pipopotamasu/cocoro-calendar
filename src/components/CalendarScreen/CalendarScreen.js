@@ -13,12 +13,12 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
     super(props);
 
     this.state = {
-      date: AppStore.today.ymd,
+      date: AppStore.date.dateString,
     };
   }
 
   componentWillMount() {
-    const { year, month } = AppStore.today
+    const { year, month } = AppStore.date
     AppStore.registerTodosGroupByDate(year, month)
   }
 
@@ -42,7 +42,6 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
     }
     return (
       <Container>
-        <GlobalHeader title="Calendar" navigation={this.props.navigation}/>
         <Content padder style={styles.calendar}>
           <Calendar
             current={this.state.date}
@@ -57,12 +56,22 @@ import { calCalendarColor, calProgress } from "../../utill_methods"
               });
               AppStore.registerTodosGroupByDate(date.year, month)
             }}
+            onDayPress={(date) => {
+              AppStore.setDate(date)
+              this.props.navigation.navigate("Todo")
+            }}
           />
         </Content>
       </Container>
     );
   }
 }
+
+CalendarScreen.navigationOptions = ({ navigation }) => ({
+  header: (
+    <GlobalHeader title="Calendar" navigation={navigation} />
+  )
+});
 
 const styles = StyleSheet.create({
   calendar: {

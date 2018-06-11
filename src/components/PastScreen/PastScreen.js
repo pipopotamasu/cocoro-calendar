@@ -1,15 +1,15 @@
 import React from "react";
 import { StyleSheet, FlatList } from 'react-native';
-import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox } from "native-base";
+import { Container, Content, Text, Card, CardItem, List, ListItem, CheckBox, Header, Left, Button, Icon, Body, Title, Right } from "native-base";
 import { toJS } from 'mobx';
 import { observer } from 'mobx-react';
-import GlobalHeader from "../GlobalHeader";
 import Todos from "../Todos"
 import AppStore from "../../store/appStore";
 import * as Progress from 'react-native-progress';
 import { calProgressColor } from "../../utill_methods"
 
-@observer export default class HomeScreen extends React.Component {
+@observer export default class PastScreen extends React.Component {
+
   async componentWillMount() {
     await AppStore.registerTodos()
   }
@@ -17,7 +17,6 @@ import { calProgressColor } from "../../utill_methods"
   render() {
     return (
       <Container>
-        <GlobalHeader title="Home" navigation={this.props.navigation} />
         <Content padder>
           <Card style={styles.date}>
             <CardItem header>
@@ -39,6 +38,27 @@ import { calProgressColor } from "../../utill_methods"
     );
   }
 }
+
+PastScreen.navigationOptions = ({ navigation }) => ({
+  header: (
+    <Header>
+      <Left>
+        <Button
+          transparent
+          onPress={() => {
+            AppStore.refreshCalendar()
+            navigation.goBack()
+          }}>
+          <Icon name="arrow-back" />
+        </Button>
+      </Left>
+      <Body>
+        <Title>Past</Title>
+      </Body>
+      <Right />
+    </Header>
+  )
+});
 
 const styles = StyleSheet.create({
   date: {

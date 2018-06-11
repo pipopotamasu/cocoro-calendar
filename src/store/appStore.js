@@ -1,4 +1,4 @@
-import { observable } from 'mobx';
+import { observable, toJS } from 'mobx';
 import { today } from '../utill_methods'
 import Store from 'react-native-store';
 import { calProgress } from "../utill_methods"
@@ -14,7 +14,7 @@ const DB = {
 }
 
 class AppStore {
-  @observable today = today();
+  @observable date = today();
   @observable todos = [];
   @observable is_updated_todos = false;
   @observable todos_group_by_day = {};
@@ -24,28 +24,30 @@ class AppStore {
     return calProgress(this.todos)
   }
 
-  toggleDone(id) {
+  async toggleDone(id) {
     newTodos = []
-    this.todos.forEach((todo, i) => {
-      if (todo.id == id) {
+    const todos = toJS(this.todos)
+    for(let i in todos) {
+      let todo = todos[i]
+      if(todo.id == id) {
         todo.done = !todo.done
-        this.updateTodo(todo)
+        todo = await this.updateTodo(todo)
       }
       newTodos.push(todo)
-    });
+    }
     this.todos.replace(newTodos)
     this.is_updated_todos = true
   }
 
   async registerTodos() {
-    const res = await this.fetchTodos(this.today.ymd)
+    const res = await this.fetchTodos(this.date.dateString)
 
-    // exist today's todos?
+    // exist todos?
     if (res === null) {
       await this.saveTodos(INITIAL_TODOS)
-      this.todos = await this.fetchTodos(this.today)
+      this.todos = await this.fetchTodos(this.date)
     } else {
-      // fetch today's todos if exists
+      // fetch todos if exists
       this.todos = res
     }
   }
@@ -77,12 +79,32 @@ class AppStore {
 
   async saveTodos(todos) {
     for(let i in todos) {
-      await DB.todo.add(Object.assign(todos[i], { created_at: this.today.ymd }))
+      await DB.todo.add(Object.assign(todos[i], { created_at: this.date.dateString }))
     }
   }
 
   async updateTodo(todo) {
-    await DB.todo.updateById(todo, todo._id)
+    return await DB.todo.updateById(todo, todo._id)
+  }
+
+  refreshCalendar() {
+    if (this.is_updated_todos) {
+      const { year, month } = this.date
+      this.registerTodosGroupByDate(year, month)
+      this.is_updated_todos = false
+    }
+  }
+
+  async refreshTodos() {
+    if (this.date.dateString !== today().dateString) {
+      this.setDate(today())
+      await this.registerTodos()
+    }
+  }
+
+  setDate(date) {
+    const month = ( "0" + date.month).slice(-2)
+    this.date = { year: date.year, month: month, day: date.day, dateString: date.dateString }
   }
 }
 
