@@ -2,7 +2,7 @@ import React from "react";
 import { Container, Content, Text, List, ListItem } from "native-base";
 import AppStore from '../../store/appStore'
 
-const routes = ["Home", "Calendar", "Discription"];
+const routes = ["Home", "Calendar"];
 
 export default class SideBar extends React.Component {
   render() {
