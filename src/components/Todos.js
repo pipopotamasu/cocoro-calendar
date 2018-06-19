@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet, FlatList } from 'react-native';
-import { Text, ListItem, CheckBox } from "native-base";
+import { Text, ListItem, CheckBox, Icon } from "native-base";
 import AppStore from "../store/appStore";
 
 export default Todos = (props) => {
@@ -12,6 +12,7 @@ export default Todos = (props) => {
         <ListItem onPress={()=>AppStore.toggleDone(item.id)}>
           <CheckBox onPress={()=>AppStore.toggleDone(item.id)} checked={item.done}/>
           <Text style={styles.itemText}>{item.text}</Text>
+          <Icon style={styles.icon} type="MaterialCommunityIcons" name="comment-question-outline" />
         </ListItem>
       )}
     />
@@ -21,5 +22,8 @@ export default Todos = (props) => {
 const styles = StyleSheet.create({
   itemText: {
     paddingLeft: 10
+  },
+  icon: {
+    paddingLeft: 250
   }
 });
