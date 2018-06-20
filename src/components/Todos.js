@@ -12,7 +12,7 @@ export default Todos = (props) => {
         <ListItem onPress={()=>AppStore.toggleDone(item.id)}>
           <CheckBox onPress={()=>AppStore.toggleDone(item.id)} checked={item.done}/>
           <Text style={styles.itemText}>{item.text}</Text>
-          <Icon style={styles.icon} type="MaterialCommunityIcons" name="comment-question-outline" />
+          <Icon onPress={()=>props.navigation.navigate("Description")} style={styles.icon} type="MaterialCommunityIcons" name="comment-question-outline" />
         </ListItem>
       )}
     />
