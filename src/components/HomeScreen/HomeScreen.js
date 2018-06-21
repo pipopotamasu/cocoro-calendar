@@ -39,6 +39,12 @@ import { calProgressColor } from "../../utill_methods"
   }
 }
 
+HomeScreen.navigationOptions = ({ navigation }) => ({
+  header: (
+    <GlobalHeader title="Home" navigation={navigation} />
+  )
+});
+
 const styles = StyleSheet.create({
   date: {
     alignItems: 'center',
