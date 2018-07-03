@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import HomeScreen from "./src/components/HomeScreen/index.js";
+import TabScreen from "./src/components/TabScreen/TabScreen.js";
 
 export default class App extends React.Component {
   render() {
     return (
-      <HomeScreen />
+      <TabScreen />
     );
   }
 }

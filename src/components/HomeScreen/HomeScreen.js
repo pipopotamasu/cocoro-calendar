@@ -17,7 +17,6 @@ import { calProgressColor } from "../../utill_methods"
   render() {
     return (
       <Container>
-        <GlobalHeader title="Home" navigation={this.props.navigation} />
         <Content padder>
           <Card style={styles.date}>
             <CardItem header>
@@ -33,12 +32,18 @@ import { calProgressColor } from "../../utill_methods"
             height={15} />
         </Container>
         <Container style={styles.todoList}>
-          <Todos todos={toJS(AppStore.todos)}/>
+          <Todos todos={toJS(AppStore.todos)} navigation={this.props.navigation}/>
         </Container>
       </Container>
     );
   }
 }
+
+HomeScreen.navigationOptions = ({ navigation }) => ({
+  header: (
+    <GlobalHeader title="Home" navigation={navigation} />
+  )
+});
 
 const styles = StyleSheet.create({
   date: {

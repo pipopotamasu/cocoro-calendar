@@ -1,13 +1,9 @@
 import React, { Component } from "react";
-import TabScreen from "../TabScreen/TabScreen.js";
-import SideBar from "../SideBar/SideBar.js";
-import { DrawerNavigator } from "react-navigation";
-const HomeScreenRouter = DrawerNavigator(
-  {
-    Home: { screen: TabScreen }
-  },
-  {
-    contentComponent: props => <SideBar {...props} />
-  }
-);
-export default HomeScreenRouter;
+import HomeScreen from "./HomeScreen"
+import Description from "../Description"
+import { StackNavigator } from "react-navigation";
+
+export default (DrawNav = StackNavigator({
+  Home: { screen: HomeScreen },
+  Description: { screen: Description }
+}));
